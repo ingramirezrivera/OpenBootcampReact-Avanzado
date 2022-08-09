@@ -40,6 +40,8 @@ app.get('/', async (req,res) => {
     }catch (e) { console.log(e) }
 })
 
+
+
 app.post('/subscription', (req,res) => {
     console.log(req.body);
     req.sendStatus(200).json();
