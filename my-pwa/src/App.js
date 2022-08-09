@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import axios from 'axios';
 
 function App() {
 
@@ -22,6 +23,12 @@ function App() {
     event.preventDefault();
     console.log(inputs);
   }
+
+  const sendNote = () => axios.post('http://localhost:8000/custom-notification', {
+      title : inputs.title,
+      message : inputs.message
+    }).then(r => console.log(r)).catch(e => console.log(e));
+  
   
   return (
     <div className="App">
@@ -50,7 +57,7 @@ function App() {
               onChange={handleChange}
             />
             </label>
-            <input type="submit" />
+            <button type='submit'>Send notification</button>
         </form>
       </header>
     </div>

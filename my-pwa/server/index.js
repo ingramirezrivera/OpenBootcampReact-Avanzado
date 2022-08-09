@@ -35,16 +35,21 @@ app.get('/', async (req,res) => {
     // res.sendStatus(200).json();
     const payload = JSON.stringify({ title: "Titulo de la notificación", message: "Mensaje de la notificación" })
     try{
-        await webpush.sendNotification(pushSubscription, payload);
-        await res.send("Enviado");
+        await webpush.sendNotification(subscription, payload);
+        await res.send("Todo en orden, enviado correctamente");
     }catch (e) { console.log(e) }
 })
 
-
+app.post('./custom-notification', (req, res) => {
+  const { title, message } = req.body;
+  const payload = JSON.stringify({ title, message });
+  webpush.sendNotification(subscription, payload);
+} )
 
 app.post('/subscription', (req,res) => {
-    console.log(req.body);
-    req.sendStatus(200).json();
+    const { pushSubscription } = req.body;
+    console.log(pushSubscription);
+    req.sendStatus(200);
 } )
 
 app.listen(8000, () => console.log("Server listening on port 8000"));
